@@ -26,6 +26,9 @@ eo %>%
 ```
 
 ```{r}
+ntee_json <- jsonlite::fromJSON("https://raw.githubusercontent.com/dhenderson/ntee/master/ntee.json")
+ntee_map <- map_dfr(names(ntee_json), ~ tibble(name = .x, desc = ntee_json[[.x]]$title))
+
 eo %>%
   group_by(NTEE_CD) %>%
   summarise(across(where(is.numeric), sum, na.rm = TRUE)) %>%
@@ -42,8 +45,6 @@ eo %>%
 ```
 
 ```{r}
-ntee_json <- jsonlite::fromJSON("https://raw.githubusercontent.com/dhenderson/ntee/master/ntee.json")
-ntee_map <- map_dfr(names(ntee_json), ~ tibble(name = .x, desc = ntee_json[[.x]]$title))
 
 ```
 
